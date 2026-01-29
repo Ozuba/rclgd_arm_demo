@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://b40xuops7p18e"]
+
+[ext_resource type="PackedScene" uid="uid://c6jt3tei85yaa" path="res://Assets/Models/ur5e/visual/base.glb" id="1_0jj3s"]
+[ext_resource type="Script" uid="uid://d2jbka0p7kxos" path="res://Scenes/arm/arm.gd" id="1_weufy"]
+[ext_resource type="PackedScene" uid="uid://cu7e6mxp7eu8p" path="res://Assets/Models/ur5e/visual/shoulder.glb" id="2_weufy"]
+[ext_resource type="PackedScene" uid="uid://c88hkliuunoew" path="res://Assets/Models/ur5e/visual/upperarm.glb" id="3_pmxgt"]
+[ext_resource type="PackedScene" uid="uid://dt8rp8i5essj5" path="res://Assets/Models/ur5e/visual/forearm.glb" id="4_xqbwo"]
+[ext_resource type="PackedScene" uid="uid://cvuh8ke5euj7u" path="res://Assets/Models/ur5e/visual/wrist1.glb" id="6_8xjov"]
+[ext_resource type="PackedScene" uid="uid://wiu4exakrhvw" path="res://Assets/Models/ur5e/visual/wrist2.glb" id="7_ix25s"]
+[ext_resource type="PackedScene" uid="uid://dqvis7vf0b3ms" path="res://Assets/Models/ur5e/visual/wrist3.glb" id="8_k3t2s"]
+
+[node name="Arm" type="Node3D" unique_id=1882689239]
+script = ExtResource("1_weufy")
+
+[node name="BaseLink" type="StaticBody3D" parent="." unique_id=2075379002]
+
+[node name="base" parent="BaseLink" unique_id=1496038715 instance=ExtResource("1_0jj3s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0014103651, 0, 0.0010148883)
+
+[node name="base_tf" type="RosTfBroadcaster3D" parent="BaseLink" unique_id=851045413]
+frame_id = "base"
+
+[node name="ShoulderPan" type="HingeJoint3D" parent="." unique_id=399841807]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.096151546, 0)
+node_a = NodePath("../BaseLink")
+node_b = NodePath("../ShoulderLink")
+
+[node name="ShoulderLink" type="RigidBody3D" parent="." unique_id=1455251564]
+
+[node name="shoulder" parent="ShoulderLink" unique_id=129126647 instance=ExtResource("2_weufy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16637576, 0)
+
+[node name="shoulder_pan_tf" type="RosTfBroadcaster3D" parent="ShoulderLink" unique_id=1960134952]
+frame_id = "shoulder_pan"
+parent_frame_id = "base"
+parent_node_path = NodePath("../../BaseLink/base_tf")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.096151546, 0)
+
+[node name="ShoulderLift" type="HingeJoint3D" parent="." unique_id=1502170613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16015112, -0.074306495)
+node_a = NodePath("../ShoulderLink")
+node_b = NodePath("../UpperArmLink")
+
+[node name="UpperArmLink" type="RigidBody3D" parent="." unique_id=1652604645]
+
+[node name="upperarm" parent="UpperArmLink" unique_id=1618912656 instance=ExtResource("3_pmxgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16654235, -0.13859832)
+
+[node name="shoulder_lift_tf" type="RosTfBroadcaster3D" parent="UpperArmLink" unique_id=1384626790]
+frame_id = "shoulder_lift"
+parent_frame_id = "shoulder_pan"
+parent_node_path = NodePath("../../ShoulderLink/shoulder_pan_tf")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16015112, -0.074306495)
+
+[node name="Elbow" type="HingeJoint3D" parent="." unique_id=983461448]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.586943, -0.06806825)
+node_a = NodePath("../UpperArmLink")
+node_b = NodePath("../ForearmLink")
+
+[node name="ForearmLink" type="RigidBody3D" parent="." unique_id=614543417]
+
+[node name="forearm" parent="ForearmLink" unique_id=959770644 instance=ExtResource("4_xqbwo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5901238, -0.007880345)
+
+[node name="elbow_tf" type="RosTfBroadcaster3D" parent="ForearmLink" unique_id=585760773]
+frame_id = "elbow"
+parent_frame_id = "shoulder_lift"
+parent_node_path = NodePath("../../UpperArmLink/shoulder_lift_tf")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.586943, -0.06806825)
+
+[node name="WristTilt" type="HingeJoint3D" parent="." unique_id=987893030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97757846, -0.057742566)
+node_a = NodePath("../ForearmLink")
+node_b = NodePath("../Wrist1")
+
+[node name="Wrist1" type="RigidBody3D" parent="." unique_id=1742850645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0022628903, 0.98177576, -0.00819616)
+
+[node name="wrist1" parent="Wrist1" unique_id=1542779654 instance=ExtResource("6_8xjov")]
+
+[node name="wrist_tilt_tf" type="RosTfBroadcaster3D" parent="Wrist1" unique_id=121363022]
+frame_id = "wrist_tilf"
+parent_frame_id = "elbow"
+parent_node_path = NodePath("../../ForearmLink/elbow_tf")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0022628903, -0.0041972995, -0.049546406)
+
+[node name="WristSwing" type="HingeJoint3D" parent="." unique_id=2082726942]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.0165064, -0.1340373)
+node_a = NodePath("../Wrist1")
+node_b = NodePath("../Wrist2")
+
+[node name="Wrist2" type="RigidBody3D" parent="." unique_id=64517996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0022628903, 0.98177576, -0.00819616)
+
+[node name="wrist2" parent="Wrist2" unique_id=1887329914 instance=ExtResource("7_ix25s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0003007874, -0.0001963377, -0.12766995)
+
+[node name="wrist_swing_tf" type="RosTfBroadcaster3D" parent="Wrist2" unique_id=1211186826]
+frame_id = "wrist_swing"
+parent_frame_id = "wrist_tilf"
+parent_node_path = NodePath("../../Wrist1/wrist_tilt_tf")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.0022628903, 0.034730673, -0.12584114)
+
+[node name="WristRoll" type="HingeJoint3D" parent="." unique_id=396701499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08, -0.18362185)
+node_a = NodePath("../Wrist2")
+node_b = NodePath("../Wrist3")
+
+[node name="Wrist3" type="RigidBody3D" parent="." unique_id=2135795380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98206306, -0.008510202)
+
+[node name="wrist3" parent="Wrist3" unique_id=1757743875 instance=ExtResource("8_k3t2s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0034858584, 0.09963083, -0.12706544)
+
+[node name="wrist_roll_tf" type="RosTfBroadcaster3D" parent="Wrist3" unique_id=851860018]
+frame_id = "wrist_roll_tf"
+parent_frame_id = "wrist_swing"
+parent_node_path = NodePath("../../Wrist2/wrist_swing_tf")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0003008498, 0.10029137, -0.17185219)

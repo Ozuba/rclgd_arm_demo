@@ -1,0 +1,11 @@
+<package format="3">
+  <name>rclgd_arm_demo</name>
+  <version>0.1.0</version>
+  <maintainer email="ozuba@ozuba.es">Ozuba</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>rclgd</buildtool_depend>
+  <export>
+    <build_type>rclgd</build_type>
+  </export>
+</package>

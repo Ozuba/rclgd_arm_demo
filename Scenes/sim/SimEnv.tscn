@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bgdafh7stxdw8"]
+
+[ext_resource type="Material" uid="uid://bsv8ux5upf4hf" path="res://Assets/Textures/Asphalt/Asphalt.tres" id="1_ahvmt"]
+[ext_resource type="Script" uid="uid://chw8dsw3ii7qg" path="res://Scenes/sim/sim_env.gd" id="1_ux211"]
+[ext_resource type="Script" uid="uid://diysurgbljif6" path="res://addons/freecam_3D/freecam.gd" id="3_dglw2"]
+[ext_resource type="PackedScene" uid="uid://b40xuops7p18e" path="res://Scenes/arm/arm.tscn" id="5_nw7cm"]
+[ext_resource type="Texture2D" uid="uid://d2sohta4a0brk" path="res://Assets/Textures/Sky/kloofendal_48d_partly_cloudy_puresky_2k.exr" id="7_hccvn"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ok5qf"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gnuhh"]
+points = PackedVector3Array(-100, 0, -100, -100, 0, 100, 100, 0, -100, 100, 0, 100)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uv2q3"]
+lightmap_size_hint = Vector2i(1002, 1002)
+material = ExtResource("1_ahvmt")
+add_uv2 = true
+size = Vector2(200, 200)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0sr3w"]
+panorama = ExtResource("7_hccvn")
+energy_multiplier = 2.0
+
+[sub_resource type="Sky" id="Sky_640h4"]
+sky_material = SubResource("PanoramaSkyMaterial_0sr3w")
+
+[sub_resource type="Environment" id="Environment_dtsg1"]
+background_mode = 2
+background_color = Color(0.529412, 0.807843, 0.921569, 1)
+sky = SubResource("Sky_640h4")
+ambient_light_color = Color(1, 1, 1, 1)
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_read_sky_light = false
+
+[node name="SimEnviroment" type="Node" unique_id=888107212]
+script = ExtResource("1_ux211")
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=882928699]
+physics_material_override = SubResource("PhysicsMaterial_ok5qf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1728290613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+top_level = true
+shape = SubResource("ConvexPolygonShape3D_gnuhh")
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground" unique_id=1588406334]
+mesh = SubResource("PlaneMesh_uv2q3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2823392]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=185821458]
+environment = SubResource("Environment_dtsg1")
+
+[node name="Arm" parent="." unique_id=1882689239 instance=ExtResource("5_nw7cm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2138567, 0.010000182, 0.71353436)
+
+[node name="Freecam3D" type="Camera3D" parent="." unique_id=901692617]
+transform = Transform3D(0.9985835, -0.026603788, 0.046078943, 6.1467325e-08, 0.86602527, 0.50000036, -0.053207427, -0.49929214, 0.8647985, 0.3929062, 1.2206535, 2.591879)
+current = true
+script = ExtResource("3_dglw2")
