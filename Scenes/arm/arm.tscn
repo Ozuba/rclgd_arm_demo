@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cvuh8ke5euj7u" path="res://Assets/Models/ur5e/visual/wrist1.glb" id="6_8xjov"]
 [ext_resource type="PackedScene" uid="uid://wiu4exakrhvw" path="res://Assets/Models/ur5e/visual/wrist2.glb" id="7_ix25s"]
 [ext_resource type="PackedScene" uid="uid://dqvis7vf0b3ms" path="res://Assets/Models/ur5e/visual/wrist3.glb" id="8_k3t2s"]
+[ext_resource type="Script" uid="uid://ds4q43s0n1ft7" path="res://addons/rclgd-sensors/ros_camera/ros_camera.gd" id="9_ix25s"]
+[ext_resource type="Script" uid="uid://cxrb8iam8llhk" path="res://addons/rclgd-sensors/ros_lidar/ros_lidar.gd" id="10_k3t2s"]
 
 [node name="Arm" type="Node3D" unique_id=1882689239]
 script = ExtResource("1_weufy")
@@ -102,7 +104,7 @@ parent_node_path = NodePath("../../Wrist1/wrist_tilt_tf")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.0022628903, 0.034730673, -0.12584114)
 
 [node name="WristRoll" type="HingeJoint3D" parent="." unique_id=396701499]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08, -0.18362185)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.081, -0.184)
 node_a = NodePath("../Wrist2")
 node_b = NodePath("../Wrist3")
 
@@ -110,7 +112,19 @@ node_b = NodePath("../Wrist3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98206306, -0.008510202)
 
 [node name="wrist3" parent="Wrist3" unique_id=1757743875 instance=ExtResource("8_k3t2s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0034858584, 0.09963083, -0.12706544)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025087297, 0.09963083, -0.12706544)
+
+[node name="RosCamera" type="Node3D" parent="Wrist3/wrist3" unique_id=478080745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.13552381)
+script = ExtResource("9_ix25s")
+metadata/_custom_type_script = "uid://ds4q43s0n1ft7"
+
+[node name="RosLidar" type="Node3D" parent="Wrist3/wrist3" unique_id=1021189082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.11854769)
+script = ExtResource("10_k3t2s")
+frame_id = "lidar"
+parent_frame_id = "base_link"
+metadata/_custom_type_script = "uid://cxrb8iam8llhk"
 
 [node name="wrist_roll_tf" type="RosTfBroadcaster3D" parent="Wrist3" unique_id=851860018]
 frame_id = "wrist_roll_tf"

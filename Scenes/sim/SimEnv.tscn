@@ -33,6 +33,8 @@ ssao_enabled = true
 ssil_enabled = true
 sdfgi_read_sky_light = false
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nw7cm"]
+
 [node name="SimEnviroment" type="Node" unique_id=888107212]
 script = ExtResource("1_ux211")
 
@@ -61,3 +63,65 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2138567, 0.010000182, 0.713
 transform = Transform3D(0.9985835, -0.026603788, 0.046078943, 6.1467325e-08, 0.86602527, 0.50000036, -0.053207427, -0.49929214, 0.8647985, 0.3929062, 1.2206535, 2.591879)
 current = true
 script = ExtResource("3_dglw2")
+
+[node name="Obstacles" type="Node3D" parent="." unique_id=1788905327]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0389726, -17.856606)
+
+[node name="Capsule" type="MeshInstance3D" parent="Obstacles" unique_id=474215750]
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule2" type="MeshInstance3D" parent="Obstacles" unique_id=1332338410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 36.077377)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule3" type="MeshInstance3D" parent="Obstacles" unique_id=1876999529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.383865, 0, 19.721813)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule4" type="MeshInstance3D" parent="Obstacles" unique_id=2100595052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.897663, 0, 19.721813)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule5" type="MeshInstance3D" parent="Obstacles" unique_id=1592858942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.897663, 0, 12.695715)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule6" type="MeshInstance3D" parent="Obstacles" unique_id=1577053229]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.897663, 0, 27.722061)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule7" type="MeshInstance3D" parent="Obstacles" unique_id=939044335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.327507, 0, 27.722061)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule8" type="MeshInstance3D" parent="Obstacles" unique_id=887192361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.327507, 0, 13.059508)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule9" type="MeshInstance3D" parent="Obstacles" unique_id=593594814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.705643, 0, 13.059508)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule10" type="MeshInstance3D" parent="Obstacles" unique_id=1945552749]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.705643, 0, 2.9894094)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule11" type="MeshInstance3D" parent="Obstacles" unique_id=2110801543]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.795311, 0, 2.9894094)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
+
+[node name="Capsule12" type="MeshInstance3D" parent="Obstacles" unique_id=924742097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.132561, 0, 28.676357)
+mesh = SubResource("CapsuleMesh_nw7cm")
+skeleton = NodePath("../..")
