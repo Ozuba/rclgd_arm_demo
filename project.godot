@@ -45,4 +45,6 @@ Cones="Todos los miembros de este grupo son conos"
 [physics]
 
 3d/run_on_separate_thread=true
-common/physics_ticks_per_second=200
+common/physics_ticks_per_second=400
+common/max_physics_steps_per_frame=16
+common/enable_object_picking=false

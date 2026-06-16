@@ -3,6 +3,7 @@
   <version>0.1.0</version>
   <maintainer email="ozuba@ozuba.es">Ozuba</maintainer>
   <license>MIT</license>
+  <description>GODOT demo of a 6 DOF arm from UR robots</description>
 
   <buildtool_depend>rclgd</buildtool_depend>
   <export>
